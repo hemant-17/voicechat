@@ -1,0 +1,2 @@
+PyAudio == 0.2.11
+pycryptodome == 3.9.8
