@@ -2,6 +2,13 @@ import socket
 import pyaudio
 import wave
 import time
+from Crypto.Cipher import AES
+import random
+import string
+
+#keys
+AES_KEY = 'KP877IxMZSq25zTDEyy8NDbSFQ8Uiljm'
+AES_IV = 'rxugdew3oOhNj5RH'
 
 CHUNK = 1024
 FORMAT = pyaudio.paInt16
@@ -20,7 +27,7 @@ stream = p.open(format=p.get_format_from_width(WIDTH),
                 frames_per_buffer=CHUNK)
 
 
-HOST = '127.0.0.1'                 # Symbolic name meaning all available interfaces
+HOST = ''                 # Symbolic name meaning all available interfaces
 PORT = 50007              # Arbitrary non-privileged port
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.bind((HOST, PORT))
@@ -31,6 +38,8 @@ data = conn.recv(1024)
 
 i=1
 while data != '':
+    decryptor = AES.new(AES_KEY.encode("utf-8"), AES.MODE_CFB, AES_IV.encode("utf-8"))
+    data = decryptor.decrypt(data)
     stream.write(data)
     data = conn.recv(1024)
     i=i+1
@@ -47,3 +56,6 @@ stream.stop_stream()
 stream.close()
 p.terminate()
 conn.close()
+
+# decryptor = AES.new(AES_KEY.encode("utf-8"), AES.MODE_CFB, AES_IV.encode("utf-8"))
+# decrypted_audio = decryptor.decrypt(encrypted_audio)

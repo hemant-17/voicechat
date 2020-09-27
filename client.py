@@ -1,6 +1,13 @@
 import socket
 import pyaudio
 import wave
+from Crypto.Cipher import AES
+import random
+import string
+
+#keys
+AES_KEY = 'KP877IxMZSq25zTDEyy8NDbSFQ8Uiljm'
+AES_IV = 'rxugdew3oOhNj5RH'
 
 #record
 CHUNK = 1024
@@ -29,6 +36,8 @@ frames = []
 
 for i in range(0, int(RATE/CHUNK*RECORD_SECONDS)):
  data  = stream.read(CHUNK)
+ encryptor = AES.new(AES_KEY.encode("utf-8"), AES.MODE_CFB, AES_IV.encode("utf-8"))
+ data = encryptor.encrypt(data)
  frames.append(data)
  s.sendall(data)
 
@@ -40,3 +49,6 @@ p.terminate()
 s.close()
 
 print("*closed")
+
+# encryptor = AES.new(AES_KEY.encode("utf-8"), AES.MODE_CFB, AES_IV.encode("utf-8"))
+# encrypted_audio = encryptor.encrypt(contents)

@@ -1,10 +1,16 @@
-import AES
+from Crypto.Cipher import AES
 import random
 import string
 
-AES_KEY = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for x in range(32))
+# AES_KEY = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for x in range(32))
 
-AES_IV = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for x in range(16))
+# AES_IV = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for x in range(16))
+
+AES_KEY = 'KP877IxMZSq25zTDEyy8NDbSFQ8Uiljm'
+AES_IV = 'rxugdew3oOhNj5RH'
+
+print(AES_KEY)
+print(AES_IV)
 
 input_file = 'audio.wav'
 
