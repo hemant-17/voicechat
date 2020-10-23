@@ -23,7 +23,6 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((HOST, PORT))
 
 p = pyaudio.PyAudio()
-
 stream = p.open(format=FORMAT,
                 channels=CHANNELS,
                 rate=RATE,
